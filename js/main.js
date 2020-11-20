@@ -9,8 +9,8 @@ let todoContainer = document.querySelector(".todo-container"),
 	noTasksMsg = tasksContainer.querySelector(".no-tasks-message"),
 	
 	taskStats = todoContainer.querySelector(".task-stats"),
-	tasksCount = taskStats.querySelector(".tasks-count"),
-	tasksCompleted = taskStats.querySelector(".tasks-completed");
+	tasksCount = taskStats.querySelector(".tasks-count span"),
+	tasksCompleted = taskStats.querySelector(".tasks-completed span");
 
 // Focus On Input Field
 window.onload = function () {
@@ -29,14 +29,17 @@ addInput.addEventListener("keypress", (e) => {
 function createTask() {
 	// If Input Not Empty
 	if (addInput.value !== "") {
-		// Remove No Tasks Message
-		noTasksMsg.style.display = "none";
-
 		// Create Task1
 		createTaskContent(addInput.value);
 	
 		// Empty Input After Add Task
 		addInput.value = "";
+
+		// Handle No Tasks Message
+		handleNoTasksMsg();
+
+		// Calculate Tasks
+		calculateTasks();
 	
 		// Focus On Input Again
 		addInput.focus();
@@ -68,11 +71,45 @@ document.addEventListener("click", function (e) {
 	if (e.target.className === "delete") {
 		// Remove Current Task
 		e.target.parentElement.remove();
+
+		// Handle No Tasks Message
+		handleNoTasksMsg();
+
+		// Calculate Tasks
+		calculateTasks();
+
+		// Hundle Complete Tasks Number
+		calculateCompleteTasks();
 	}
 
 	// Finish Task
 	if (e.target.classList.contains("task-box")) {
 		// Toggle Class [Finished]
 		e.target.classList.toggle("finished");
+
+		// Hundle Complete Tasks Number
+		calculateCompleteTasks();
 	}
 });
+
+// Function For Checking Is There Tasks Or No
+function handleNoTasksMsg() {
+	// Note - [ childElementCount ] Not Working Becouse I Use [ Display ] Property Not Removing The Element
+	if (tasksContainer.querySelectorAll(".task-box").length > 0) {
+		// Hide [ noTasksMsg ] Element
+		noTasksMsg.style.display = "none";
+	} else {
+		// Show [ noTasksMsg ] Element
+		noTasksMsg.style.display = "block";
+	}
+}
+
+// Founction For Calculate All Tasks
+function calculateTasks() {
+	tasksCount.textContent = tasksContainer.querySelectorAll(".task-box").length;
+}
+
+// Founction For Calculate Completed Tasks
+function calculateCompleteTasks() {
+	tasksCompleted.textContent = tasksContainer.querySelectorAll(".task-box.finished").length;
+}
