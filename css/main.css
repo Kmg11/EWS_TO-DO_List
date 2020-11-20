@@ -57,6 +57,9 @@ body {
 .todo-container .tasks-content > div:not(:last-child) {
 	margin-bottom: 10px;
 }
+.todo-container .tasks-content .task-box {
+	cursor: pointer;
+}
 .todo-container .tasks-content .task-box .delete {
 	float: right;
 	background-color: #E91E63;

@@ -61,4 +61,18 @@ function createTaskContent(taskText) {
 
 	// Append [ taskBox ] To [ tasksContainer ]
 	tasksContainer.appendChild(taskBox);
-}
+};
+
+document.addEventListener("click", function (e) {
+	// Delete Task
+	if (e.target.className === "delete") {
+		// Remove Current Task
+		e.target.parentElement.remove();
+	}
+
+	// Finish Task
+	if (e.target.classList.contains("task-box")) {
+		// Toggle Class [Finished]
+		e.target.classList.toggle("finished");
+	}
+});
