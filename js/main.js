@@ -43,6 +43,8 @@ function createTask() {
 	
 		// Focus On Input Again
 		addInput.focus();
+	} else {
+		Swal.fire('This Field Should Not Be Empty')
 	}
 }
 
