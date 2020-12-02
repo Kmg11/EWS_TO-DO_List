@@ -22,7 +22,7 @@ addButton.addEventListener("click", createTask);
 
 // Add Task When Press [ Enter Key ]
 addInput.addEventListener("keypress", (e) => {
-	if (e.keyCode === 13) createTask();
+	if (e.code === "Enter") createTask();
 });
 
 // Create Task Function
