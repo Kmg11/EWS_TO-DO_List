@@ -99,3 +99,23 @@ body {
 .task-stats .tasks-completed span {
 	background-color: #03A9FA;
 }
+.buttons {
+	overflow: hidden;
+	padding: 15px;
+	display: none;
+}
+.buttons button {
+	border: 0;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFF;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+.buttons .finish-all {
+	background-color: #009688;
+}
+.buttons .delete-all {
+	background-color: #E91E63;
+	float: right;
+}

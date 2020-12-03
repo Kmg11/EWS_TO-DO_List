@@ -10,7 +10,11 @@ let todoContainer = document.querySelector(".todo-container"),
 	
 	taskStats = todoContainer.querySelector(".task-stats"),
 	tasksCount = taskStats.querySelector(".tasks-count span"),
-	tasksCompleted = taskStats.querySelector(".tasks-completed span");
+	tasksCompleted = taskStats.querySelector(".tasks-completed span"),
+
+	buttons = todoContainer.querySelector(".buttons"),
+	finishAll = buttons.querySelector(".finish-all"),
+	deleteAll = buttons.querySelector(".delete-all");
 
 // Focus On Input Field
 window.onload = function () {
@@ -22,7 +26,7 @@ addButton.addEventListener("click", createTask);
 
 // Add Task When Press [ Enter Key ]
 addInput.addEventListener("keypress", (e) => {
-	if (e.code === "Enter") createTask();
+	if (e.key === "Enter") createTask();
 });
 
 // Create Task Function
@@ -36,7 +40,7 @@ function createTask() {
 		addInput.value = "";
 
 		// Handle No Tasks Message
-		handleNoTasksMsg();
+		handleAppear();
 
 		// Calculate Tasks
 		calculateTasks();
@@ -75,7 +79,7 @@ document.addEventListener("click", function (e) {
 		e.target.parentElement.remove();
 
 		// Handle No Tasks Message
-		handleNoTasksMsg();
+		handleAppear();
 
 		// Calculate Tasks
 		calculateTasks();
@@ -94,15 +98,40 @@ document.addEventListener("click", function (e) {
 	}
 });
 
+// Finish All Tasks
+finishAll.addEventListener("click", () => {
+	document.querySelectorAll(".task-box").forEach(element => {
+		element.classList.add("finished");
+		calculateCompleteTasks();
+		addInput.focus();
+	});
+});
+
+// Delete All Tasks
+deleteAll.addEventListener("click", () => {
+	document.querySelectorAll(".task-box .delete").forEach(element => {
+		element.click();
+		calculateTasks();
+		calculateCompleteTasks();
+		handleAppear();
+		addInput.value = "";
+		addInput.focus();
+	});
+});
+
 // Function For Checking Is There Tasks Or No
-function handleNoTasksMsg() {
+function handleAppear() {
 	// Note - [ childElementCount ] Not Working Becouse I Use [ Display ] Property Not Removing The Element
 	if (tasksContainer.querySelectorAll(".task-box").length > 0) {
 		// Hide [ noTasksMsg ] Element
 		noTasksMsg.style.display = "none";
+		// Show [ buttons ] Element
+		buttons.style.display = "block";
 	} else {
 		// Show [ noTasksMsg ] Element
 		noTasksMsg.style.display = "block";
+		// Hide [ buttons ] Element
+		buttons.style.display = "none";
 	}
 }
 
