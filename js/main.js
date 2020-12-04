@@ -53,22 +53,35 @@ addInput.addEventListener("keypress", (e) => {
 function createTask() {
 	// If Input Not Empty
 	if (addInput.value !== "") {
-		// Create Task1
-		createTaskContent(addInput.value);
+		let dublicated;
+		
+		document.querySelectorAll(".task-box .text").forEach(element => {
+			if (element.textContent === addInput.value) {
+				dublicated = true;
+			}
+		});
 
-		setTaskInLocalStorage();
-
-		// Empty Input After Add Task
-		addInput.value = "";
-
-		// Handle No Tasks Message
-		handleAppear();
-
-		// Calculate Tasks
-		calculateTasks();
-
-		// Focus On Input Again
-		addInput.focus();
+		if (!dublicated) {
+			// Create Task1
+			createTaskContent(addInput.value);
+	
+			// Set Local Storage
+			setTaskInLocalStorage();
+	
+			// Empty Input After Add Task
+			addInput.value = "";
+	
+			// Handle No Tasks Message
+			handleAppear();
+	
+			// Calculate Tasks
+			calculateTasks();
+	
+			// Focus On Input Again
+			addInput.focus();
+		} else {
+			Swal.fire('This Task Already Exist');
+		}
 	} else {
 		Swal.fire('This Field Should Not Be Empty');
 	}
